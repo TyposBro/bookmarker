@@ -1,7 +1,13 @@
 module.exports = {
+  sourceDir: "./public/",
+  artifactsDir: "./web-ext-artifacts/",
+  build: {
+    overwriteDest: true,
+  },
   run: {
-    startUrl: ["https://www.youtube.com"],
     firefox: process.env.FIREFOX_BINARY || "firefox",
+    firefoxProfile: "dev-edition-default",
+    startUrl: ["https://www.youtube.com/watch?v=10lnRomHBLw"],
     browserConsole: true,
   },
 };

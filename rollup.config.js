@@ -1,3 +1,6 @@
+import { copyFileSync, readdirSync, statSync, mkdirSync } from "fs";
+import { join } from "path";
+
 import svelte from "rollup-plugin-svelte";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
@@ -5,9 +8,23 @@ import { terser } from "rollup-plugin-terser";
 import serve from "rollup-plugin-serve";
 import livereload from "rollup-plugin-livereload";
 import css from "rollup-plugin-css-only";
-import { copyFileSync } from "fs";
 
 const production = !process.env.ROLLUP_WATCH;
+
+function copyDir(src, dest) {
+  if (!statSync(src).isDirectory()) {
+    copyFileSync(src, dest);
+    return;
+  }
+
+  mkdirSync(dest, { recursive: true });
+  for (const file of readdirSync(src)) {
+    const srcFile = join(src, file);
+    const destFile = join(dest, file);
+    if (srcFile.includes("content-script")) continue;
+    copyDir(srcFile, destFile);
+  }
+}
 
 export default {
   input: "src/content-script/main.js",
@@ -37,7 +54,7 @@ export default {
     {
       name: "copy-manifest",
       buildEnd() {
-        copyFileSync("src/manifest.json", "public/manifest.json");
+        copyDir("src", "public");
       },
     },
   ],
