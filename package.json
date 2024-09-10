@@ -24,8 +24,8 @@
   "scripts": {
     "prebuild": "mkdir -p public",
     "build": "rollup -c",
-    "dev": "rollup -c -w",
+    "dev": "bun run prebuild && rollup -c -w",
     "start": "web-ext run --source-dir ./public/",
-    "hot-reload": "npm run prebuild && npm-run-all --parallel dev start"
+    "hot-reload": "bun run prebuild && npm-run-all --parallel dev start"
   }
 }
