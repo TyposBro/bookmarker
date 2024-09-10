@@ -5,6 +5,7 @@ import { terser } from "rollup-plugin-terser";
 import serve from "rollup-plugin-serve";
 import livereload from "rollup-plugin-livereload";
 import css from "rollup-plugin-css-only";
+import { copyFileSync } from "fs";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -33,6 +34,12 @@ export default {
     !production && serve("public"),
     !production && livereload("public"),
     production && terser(),
+    {
+      name: "copy-manifest",
+      buildEnd() {
+        copyFileSync("src/manifest.json", "public/manifest.json");
+      },
+    },
   ],
   watch: {
     clearScreen: false,

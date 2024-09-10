@@ -25,6 +25,8 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "web-ext run --source-dir ./public/",
+    "start:firefox": "FIREFOX_BINARY=firefox bun run start",
+    "start:chrome": "web-ext run -t chromium --source-dir ./public/",
     "hot-reload": "npm-run-all --parallel dev start"
   }
 }
