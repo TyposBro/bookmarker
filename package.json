@@ -1,0 +1,30 @@
+{
+  "name": "bookmarker",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^4.21.2",
+    "rollup-plugin-css-only": "^4.5.2",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-serve": "^1.1.1",
+    "rollup-plugin-svelte": "^7.2.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "svelte": "^4.2.19",
+    "web-ext": "^8.2.0"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "start": "web-ext run --source-dir ./public/",
+    "hot-reload": "npm-run-all --parallel dev start"
+  }
+}
